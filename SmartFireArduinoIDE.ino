@@ -2,15 +2,15 @@
 #include <HTTPClient.h>
 
 // WiFi credentials
-const char* ssid = "";
-const char* password = "";
+const char* ssid = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
 
 // Firebase Realtime Database
-const char* databaseURL = "";
-const char* authToken = "";  
+const char* databaseURL = "YOUR_FIREBASE_URL";
+const char* authToken = "YOUR_FB_AUTH_TOKEN";  
 
 //for php dashboard
-const char* serverURL = "";
+const char* serverURL = "YOUR_PHP_SERVER_URL";
 
 // Sensor pins
 #define SMOKE_DIGITAL_PIN 32
@@ -68,7 +68,7 @@ void loop() {
 void logEvent(String eventType) {
   if (WiFi.status() == WL_CONNECTED) {
 
-    // ---- POST TO FIREBASE (all events) ---
+    // POST TO FIREBASE all events 
     HTTPClient httpFirebase;
     String url = String(databaseURL) + "/fire_events.json";
     if (strlen(authToken) > 0) {
@@ -87,7 +87,7 @@ void logEvent(String eventType) {
     }
     httpFirebase.end();
 
-    // ---- POST TO PHP BACKEND (only fire/smoke) ----
+    //  POST TO PHP BACKEND (only fire/smoke) 
     if (eventType == "Fire Detected" || eventType == "Smoke Detected") {
       HTTPClient httpPHP;
       httpPHP.begin(serverURL);
